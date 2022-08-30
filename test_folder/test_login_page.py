@@ -17,9 +17,9 @@ class TestLoginPage(unittest.TestCase):
         self.driver.implicitly_wait(10)
         self.driver.get(self.base_url)
 
-    #def tearDown(self):
-        #self.driver.close()
-        #self.driver.quit()
+    def tearDown(self):
+        self.driver.close()
+        self.driver.quit()
 
     def test_login_successfull(self):
         field_username = self.driver.find_element(By.NAME, "username")
