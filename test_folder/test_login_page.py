@@ -4,7 +4,7 @@ from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.service import Service
 import os
 
-class TestOrangeHRM(unittest.TestCase):
+class TestLoginPage(unittest.TestCase):
 
     root_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
     service = Service(os.path.join(root_path, "chromedriver.exe"))
