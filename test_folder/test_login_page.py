@@ -21,6 +21,12 @@ class TestLoginPage(unittest.TestCase):
         self.driver.close()
         self.driver.quit()
 
+    def test_access_login_page(self):
+        login_title = self.driver.find_element(By.CLASS_NAME, "orangehrm-login-title").get_attribute("innerHTML")
+        copyright_text = self.driver.find_element(By.CLASS_NAME , "orangehrm-copyright").text
+        self.assertEqual("Login", login_title)
+        self.assertEqual("OrangeHRM OS 5.1", copyright_text)
+
     def test_login_successfull(self):
         username_field = self.driver.find_element(By.NAME, "username")
         password_field = self.driver.find_element(By.NAME, "password")
