@@ -22,7 +22,16 @@ class TestLoginPage(unittest.TestCase):
         self.driver.quit()
 
     def test_login_successfull(self):
-        field_username = self.driver.find_element(By.NAME, "username")
-        field_username.click()
-        field_username.send_keys("Admin")
-        self.assertTrue(True)
+        username_field = self.driver.find_element(By.NAME, "username")
+        password_field = self.driver.find_element(By.NAME, "password")
+        username_field.click()
+        username_field.send_keys("Admin")
+        
+        password_field.click()
+        password_field.send_keys("admin123")
+		
+        login_button = self.driver.find_element(By.CLASS_NAME, "orangehrm-login-button")
+        login_button.click()
+        
+        homepage_title = self.driver.find_element(By.CLASS_NAME, "oxd-topbar-header-breadcrumb-module").text
+        self.assertEqual("PIM", homepage_title)
