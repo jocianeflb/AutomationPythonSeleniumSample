@@ -9,10 +9,10 @@ class TestLoginPage(unittest.TestCase):
 
     root_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
     service = Service(os.path.join(root_path, "chromedriver.exe"))
-    driver = Chrome(service=service) 
     base_url = "https://opensource-demo.orangehrmlive.com"
 
-    def setUp(self):    
+    def setUp(self):  
+        self.driver = Chrome(service=self.service)   
         self.driver.maximize_window()
         self.driver.implicitly_wait(10)
         self.driver.get(self.base_url)
@@ -35,3 +35,19 @@ class TestLoginPage(unittest.TestCase):
         
         homepage_title = self.driver.find_element(By.CLASS_NAME, "oxd-topbar-header-breadcrumb-module").text
         self.assertEqual("PIM", homepage_title)
+
+    def test_login_fail(self):
+        username_field = self.driver.find_element(By.NAME, "username")
+        password_field = self.driver.find_element(By.NAME, "password")
+		
+        username_field.click()
+        username_field.send_keys("Admin")
+		
+        password_field.click()
+        password_field.send_keys("admin1234")
+		
+        login_button = self.driver.find_element(By.CLASS_NAME, "orangehrm-login-button")
+        login_button.click()
+		
+        alert_credentials = self.driver.find_element(By.CLASS_NAME, "oxd-alert-content-text").text
+        self.assertEqual("Invalid credentials", alert_credentials)
